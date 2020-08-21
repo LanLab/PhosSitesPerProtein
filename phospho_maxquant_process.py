@@ -123,19 +123,47 @@ def main():
 	parser = argparse.ArgumentParser(description='Extract S, T and Y site counts (which are above thresholds) from MaxQuant data.')
 	parser.add_argument('--maxQuantInFile', nargs=1, required=True, help='An output file from MaxQuant, as input to this script.')
 
-	parser.add_argument('--protColumn', nargs=1, default=0, type=int, help="Column containing the protein identifier.")
+	parser.add_argument('--protColumn', nargs=1, default=0, type=int, help="Column containing the protein identifier. Default is 0.")
 
-	parser.add_argument('--locProbColumn', nargs=1, default=5, type=int, help="Column containing the localization probability.")
-	parser.add_argument('--locProbTh', nargs=1, default=0.75, type=float, help="Threshold to filter localization probability.")
+	parser.add_argument('--locProbColumn', nargs=1, default=5, type=int, help="Column containing the localization probability. Default is 5.")
+	parser.add_argument('--locProbTh', nargs=1, default=0.75, type=float, help="Threshold to filter localization probability (between 0 and 1). Default is 0.75.")
 
-	parser.add_argument('--styProbColumn', nargs=1, default=29, type=int, help="Column containing the phospho-(STY)-probabilities.")
-	parser.add_argument('--styProbTh', nargs=1, default=0.75, type=float, help="Threshold to filter phospho-(STY)-probabilities.")
+	parser.add_argument('--styProbColumn', nargs=1, default=29, type=int, help="Column containing the phospho-(STY)-probabilities. Default is 29.")
+	parser.add_argument('--styProbTh', nargs=1, default=0.75, type=float, help="Threshold to filter phospho-(STY)-probabilities (between 0 and 1). Default is 0.75.")
 
 	parser.add_argument('--outfile', nargs=1, default="Output.txt", help="Output file to save the results to.")
 	# parser.add_argument('--maxQuantInFile', nargs=1, required=True, help='An output file from MaxQuant, as input to this script.')
 
 	args = parser.parse_args()
-	print(args.outfile)
+
+	if isinstance(args.protColumn, list):
+		print("is list");
+		args.protColumn = args.protColumn[0];
+
+	if isinstance(args.locProbColumn, list):
+		args.locProbColumn = args.locProbColumn[0];
+
+	if isinstance(args.locProbTh, list):
+		args.locProbTh = args.locProbTh[0];
+
+	if isinstance(args.styProbColumn, list):
+		args.styProbColumn = args.styProbColumn[0];
+
+	if isinstance(args.styProbTh, list):
+		args.styProbTh = args.styProbTh[0];
+
+	if isinstance(args.outfile, list):
+		args.outfile = args.outfile[0];
+
+	if not (args.locProbTh >= 0 and args.locProbTh <= 1):
+		#sys.stderr.write()
+		raise argparse.ArgumentTypeError("Error: Argument to --locProbTh should be between 0 and 1.")
+
+	if not (args.styProbTh >= 0 and args.styProbTh <= 1):
+		#sys.stderr.write()
+		raise argparse.ArgumentTypeError("Error: Argument to --styProbTh should be between 0 and 1.")
+
+	print(isinstance(args.protColumn, list))
 
 	countAndPrint(args.maxQuantInFile[0], args.protColumn, args.locProbColumn, args.locProbTh, args.styProbColumn, args.styProbTh, args.outfile)
 

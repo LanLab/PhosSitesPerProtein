@@ -1,8 +1,49 @@
-Count residues in peptides
+# Count residues in peptides
 
 Here, we present a script to count the number of S,T,Y phosphorylated residues above a given threshold from MaxQuant data.  
 
-```py
 
 
-``` 
+### Example
+
+We provide an example input file Phospho(STY)Sites.txt to use our script with. To run the script on this data:
+
+```sh
+python3 phospho_maxquant_process.py ---maxQuantInFile Phospho(STY)Sites.txt
+
+```
+
+The output is written to by default to the file Output.txt (this can be changed using the option --outfile below).
+
+### Usage
+```sh
+
+$ python3 phospho_maxquant_process.py -h
+usage: phospho_maxquant_process.py [-h] --maxQuantInFile MAXQUANTINFILE
+                                   [--protColumn PROTCOLUMN]
+                                   [--locProbColumn LOCPROBCOLUMN]
+                                   [--locProbTh LOCPROBTH]
+                                   [--styProbColumn STYPROBCOLUMN]
+                                   [--styProbTh STYPROBTH] [--outfile OUTFILE]
+
+Extract S, T and Y site counts (which are above thresholds) from MaxQuant
+data.
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --maxQuantInFile MAXQUANTINFILE
+                        An output file from MaxQuant, as input to this script.
+  --protColumn PROTCOLUMN
+                        Column containing the protein identifier.
+  --locProbColumn LOCPROBCOLUMN
+                        Column containing the localization probability.
+  --locProbTh LOCPROBTH
+                        Threshold to filter localization probability (between
+                        0 and 1). Default is 0.75.
+  --styProbColumn STYPROBCOLUMN
+                        Column containing the phospho-(STY)-probabilities.
+  --styProbTh STYPROBTH
+                        Threshold to filter phospho-(STY)-probabilities
+                        (between 0 and 1). Default is 0.75.
+  --outfile OUTFILE     Output file to save the results to.
+```
