@@ -131,7 +131,7 @@ def main():
 	parser.add_argument('--styProbColumn', nargs=1, default=29, type=int, help="Column containing the phospho-(STY)-probabilities. Default is 29.")
 	parser.add_argument('--styProbTh', nargs=1, default=0.75, type=float, help="Threshold to filter phospho-(STY)-probabilities (between 0 and 1). Default is 0.75.")
 
-	parser.add_argument('--outfile', nargs=1, default="Output.txt", help="Output file to save the results to.")
+	parser.add_argument('--outfile', nargs=1, default="Output.txt", help="Output file to save the results to. Default is Output.txt.")
 	# parser.add_argument('--maxQuantInFile', nargs=1, required=True, help='An output file from MaxQuant, as input to this script.')
 
 	args = parser.parse_args()
