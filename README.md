@@ -15,6 +15,9 @@ python3 phospho_maxquant_process.py ---maxQuantInFile Phospho(STY)Sites.txt
 
 The output is written to by default to the file Output.txt (this can be changed using the option --outfile below).
 
+
+The output file contains the S, T, Y counts in the last 6 columns. The first column shows the peptide identifier, and the second column shows the quantified phosphopeptide. 
+
 ### Usage
 ```sh
 
